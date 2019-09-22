@@ -1,0 +1,154 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "FIzzBuzz API",
+    "description" : "Rest api documentation for fizzbuzz game",
+    "version" : "0.1"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:8080"
+  } ],
+  "paths" : {
+    "/api/1/fizzbuzz" : {
+      "get" : {
+        "description" : "Endpoint to play fizzbuzz game",
+        "parameters" : [ {
+          "name" : "int1",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "3",
+          "description": "first fizzbuzz number"
+        }, {
+          "name" : "int2",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "5",
+          "description": "second fizzbuzz number"
+        }, {
+          "name" : "str1",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "fizz",
+          "description": "first fizzbuzz string"
+        }, {
+          "name" : "str2",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "buzz",
+          "description": "second fizzbuzz string"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "example" : "15",
+          "description": "number until the game plays"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Result of the game",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "type": "array",
+                  "items": {
+                    "type" : "string"
+                  }
+                },
+                "example" : "[1, 2, fizz, 4, buzz, fizz, 7, 8, fizz, buzz, 11, fizz, 13, 14, fizzbuzz]"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Validation parameter failed",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/1/oneTopStatistic" : {
+      "get" : {
+        "description" : "Endpoint to know the top statistic",
+        "responses" : {
+          "200" : {
+            "description" : "the top statistic",
+            "content" : {
+              "application/json;charset=UTF-8" : {
+                "schema": {
+                  "$ref": "#/components/schemas/StatisticResult"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "No statistic result found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "StatisticResult": {
+        "type": "object",
+        "properties": {
+          "int1": {
+            "type": "integer",
+            "description": "first fizzbuzz number",
+            "example": "3"
+          },
+          "int2": {
+            "type": "integer",
+            "description": "second fizzbuzz number",
+            "example": "5"
+          },
+          "str1": {
+            "type": "string",
+            "description": "first fizzbuzz string",
+            "example": "fizz"
+          },
+          "str2": {
+            "type": "string",
+            "description": "second fizzbuzz string",
+            "example": "buzz"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "number until the game plays",
+            "example": "15"
+          }
+        }
+      }
+    }
+  }
+}
