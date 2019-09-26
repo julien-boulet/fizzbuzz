@@ -7,7 +7,7 @@ plugins {
     id 'jacoco'
 }
 
-group = 'com.leboncoin'
+group = 'com.boubou'
 sourceCompatibility = '11'
 version = '1.0.0'
 

@@ -10,7 +10,7 @@ application:
 logging:
   level:
     com:
-      leboncoin: ${LOG_LEVEL:debug}
+      boubou: ${LOG_LEVEL:debug}
 
 spring:
   datasource:
