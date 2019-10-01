@@ -33,7 +33,7 @@ public class GameServiceImpl implements GameService {
         // another solution exists with several ternary operators but I think this solution is clearer
         return IntStream.rangeClosed(1, limit).mapToObj(
                 i -> {
-                    if (i % (int1 * int2) == 0) {
+                    if (i % int1 == 0 && i % int2 == 0) {
                         return str1 + str2;
                     } else if (i % int1 == 0) {
                         return str1;
