@@ -18,6 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -33,39 +35,17 @@ class StatisticServiceImplTest {
         statisticServiceImplUnderTest = new StatisticServiceImpl(mockStatisticRepository);
     }
 
-
-    @Test
-    void testSaveNotFoundElementSoCreateNewOne() {
-        // Setup
-        TestUtils.STATISTIC.setCount(1);
-
-        // mock
-        when(mockStatisticRepository.findByInt1AndInt2AndLimitAndStr1AndStr2(anyInt(), anyInt(), anyInt(), anyString(), anyString())).thenReturn(Optional.empty());
-        when(mockStatisticRepository.save(any())).then(AdditionalAnswers.returnsFirstArg());
-
-        // Run the test
-        final Statistic result = statisticServiceImplUnderTest.save(TestUtils.PARAMS);
-
-        // Verify the results
-        assertThat(result).isEqualTo(TestUtils.STATISTIC);
-    }
-
     @ParameterizedTest
     @ValueSource(ints = {1, 10, 55, 60})
-    void testSaveFoundElementSoIncrementIt(int count) {
-        // Setup
-        TestUtils.STATISTIC.setCount(count);
-
+    void testSaveElement(int count) {
         // mock
-        when(mockStatisticRepository.findByInt1AndInt2AndLimitAndStr1AndStr2(anyInt(), anyInt(), anyInt(), anyString(), anyString())).thenReturn(Optional.of(TestUtils.STATISTIC));
-        when(mockStatisticRepository.save(any())).then(AdditionalAnswers.returnsFirstArg());
+        when(mockStatisticRepository.insertOrUpdate(anyInt(), anyInt(), anyInt(), anyString(), anyString())).thenReturn(0);
 
         // Run the test
-        final Statistic result = statisticServiceImplUnderTest.save(TestUtils.PARAMS);
+        statisticServiceImplUnderTest.save(TestUtils.PARAMS);
 
         // Verify the results
-        TestUtils.STATISTIC.setCount(TestUtils.STATISTIC.getCount() + 1);
-        assertThat(result).isEqualTo(TestUtils.STATISTIC);
+        verify(mockStatisticRepository, times(1)).insertOrUpdate(anyInt(), anyInt(), anyInt(), anyString(), anyString());
     }
 
     @ParameterizedTest

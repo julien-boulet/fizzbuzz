@@ -2,7 +2,6 @@ package com.boubou.fizzbuzz.services;
 
 import com.boubou.fizzbuzz.dto.GameParameter;
 import com.boubou.fizzbuzz.dto.StatisticResult;
-import com.boubou.fizzbuzz.entities.Statistic;
 
 import java.util.Optional;
 
@@ -14,9 +13,8 @@ public interface StatisticService {
      * else a new line is save in database with count to 1.
      *
      * @param params the given params to save or increment
-     * @return the database Statistic element
      */
-    Statistic save(GameParameter params);
+    void save(GameParameter params);
 
     /**
      * Find the database entity with the higher count

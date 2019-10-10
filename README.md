@@ -69,7 +69,7 @@ docker-compose up
 - This application is a Java SpringBoot Jar.
 - Statistics data are stored in an embedded H2 database (easy to change in application.yam to switch to remote database)
 - I use [Spring Security](https://spring.io/projects/spring-security) to configure HttpSecurity and CORS configuration
-- I use [Spring Data JPA](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/) to manage the database storage
+- I use [Spring JDBC](https://www.baeldung.com/spring-jdbc-jdbctemplate) to manage the database storage
 - I use [Lombok](https://projectlombok.org/) to avoid repetitive Code
 - I use [SonarQube](https://www.sonarqube.org/) to check the code quality with [Jacoco](https://www.jacoco.org/jacoco/trunk/index.html) for code coverage
 

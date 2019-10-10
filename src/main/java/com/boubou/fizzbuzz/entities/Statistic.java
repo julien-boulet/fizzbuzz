@@ -4,17 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,9 +17,6 @@ public class Statistic {
 
     private static final long serialVersionUID = -5798016962040739254L;
 
-    @Id
-    @GeneratedValue(generator = "guid")
-    @GenericGenerator(name = "guid", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
     @PositiveOrZero
@@ -33,8 +24,6 @@ public class Statistic {
     @PositiveOrZero
     private Integer int2;
     @Min(1)
-    // limit is a sql reserved word
-    @Column(name = "lim")
     private Integer limit;
     @NotBlank
     private String str1;
@@ -43,4 +32,12 @@ public class Statistic {
     @PositiveOrZero
     private Integer count;
 
+    public Statistic(@PositiveOrZero Integer int1, @PositiveOrZero Integer int2, @Min(1) Integer limit, @NotBlank String str1, @NotBlank String str2,@PositiveOrZero Integer count) {
+        this.int1 = int1;
+        this.int2 = int2;
+        this.limit = limit;
+        this.str1 = str1;
+        this.str2 = str2;
+        this.count = count;
+    }
 }

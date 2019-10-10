@@ -1,23 +1,27 @@
 package com.boubou.fizzbuzz;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.boubou.fizzbuzz.config.LocalizationConfiguration;
 import com.boubou.fizzbuzz.controllers.GameController;
 import com.boubou.fizzbuzz.entities.Statistic;
+import com.boubou.fizzbuzz.error.GlobalControllerAdvice;
 import com.boubou.fizzbuzz.repositories.StatisticRepository;
+import com.boubou.fizzbuzz.services.GameService;
+import com.boubou.fizzbuzz.services.StatisticService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.AdditionalAnswers;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -35,8 +39,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
+@RunWith(SpringRunner.class)
+@ComponentScan(basePackageClasses = {LocalizationConfiguration.class,GlobalControllerAdvice.class,GameService.class, StatisticService.class})
+@WebMvcTest
 @AutoConfigureMockMvc
 public class FizzbuzzApplicationTests {
 
@@ -44,7 +49,7 @@ public class FizzbuzzApplicationTests {
     @Value("${application.versionApi}")
     private String versionApi;
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
     @Autowired
     private GameController gameController;
     @Autowired
@@ -66,8 +71,7 @@ public class FizzbuzzApplicationTests {
     public void getCommonFizzBuzz() throws Exception {
 
         // mock
-        when(mockStatisticRepository.findByInt1AndInt2AndLimitAndStr1AndStr2(anyInt(), anyInt(), anyInt(), anyString(), anyString())).thenReturn(Optional.empty());
-        when(mockStatisticRepository.save(any())).then(AdditionalAnswers.returnsFirstArg());
+        when(mockStatisticRepository.insertOrUpdate(anyInt(), anyInt(), anyInt(), anyString(), anyString())).thenReturn(0);
 
         ResultActions resultActions = this.mockMvc.perform(get("/" + BASE_URL + "/" + versionApi + "/" + "fizzbuzz")
                 .contentType(MediaType.APPLICATION_JSON)
