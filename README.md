@@ -8,6 +8,7 @@
 - [Test](#Test)
 - [Code quality result](#Code-quality-result)
 - [Endpoints](#Endpoints)
+- [Branches](#Branches)
 
 ## The statement
 
@@ -96,3 +97,11 @@ http://localhost:8080/api/1/fizzbuzz?int1=3&int2=5&limit=150&str1=fizz&str2=buzz
 Get method to display top statistic
 http://localhost:8080/api/1/oneTopStatistic
 ```
+
+## Branches
+
+| Branche | Base | BD interaction |
+| -------- | ------- | ------- |
+| h2bd     | H2 | Spring JPA      |
+| Master   | Postgres | Spring JPA       |
+| jdbc     | Postgres | Spring JDBC      |
