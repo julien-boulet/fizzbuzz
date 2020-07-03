@@ -1,3 +1,6 @@
+create user fizzbyzz_user with encrypted password 'fizzbyzz_password';
+grant all privileges on database postgres to fizzbyzz_user;
+
 create table statistic
 (
     id    varchar(255) not null constraint statistic_pkey primary key,
