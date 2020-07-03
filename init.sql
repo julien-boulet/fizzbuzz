@@ -1,3 +1,6 @@
+create user fizzbyzz_user with encrypted password 'fizzbyzz_password';
+grant all privileges on database postgres to fizzbyzz_user;
+
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 create table statistic

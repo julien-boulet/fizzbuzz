@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT:8082}
+  port: ${SERVER_PORT:8080}
 
 application:
   versionApi: 1
@@ -15,8 +15,8 @@ logging:
 spring:
   datasource:
     url: ${BD_URL:jdbc:postgresql://localhost:5432/postgres}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:postgres}
+    username: ${DB_USERNAME:fizzbyzz_user}
+    password: ${DB_PASSWORD:fizzbyzz_password}
 
   jpa:
     show-sql: false
