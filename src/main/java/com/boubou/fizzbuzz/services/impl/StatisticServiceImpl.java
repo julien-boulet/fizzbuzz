@@ -7,6 +7,7 @@ import com.boubou.fizzbuzz.repositories.StatisticRepository;
 import com.boubou.fizzbuzz.services.StatisticService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public class StatisticServiceImpl implements StatisticService {
 
     private final StatisticRepository statisticRepository;
+    private final ModelMapper modelMapper;
 
     /**
      * @see StatisticService#save(GameParameter)
@@ -40,7 +42,7 @@ public class StatisticServiceImpl implements StatisticService {
      */
     @Override
     public Optional<StatisticResult> findMax() {
-        return statisticRepository.findFirstByOrderByCountDesc().map(StatisticResult::new);
+        return statisticRepository.findFirstByOrderByCountDesc().map((Statistic statistic) -> new StatisticResult(statistic, modelMapper));
     }
 
 }
